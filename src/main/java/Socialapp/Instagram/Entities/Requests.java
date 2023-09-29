@@ -18,6 +18,7 @@ public class Requests {
     @Column(name = "req_status")
     private String status;
 
+
 }
 
 

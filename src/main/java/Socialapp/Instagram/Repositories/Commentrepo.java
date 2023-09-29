@@ -15,4 +15,5 @@ public interface Commentrepo extends JpaRepository<Comment,Integer> {
     List<Comment> findBypcid(int id);
 
 
+    List<Comment> findByuserid(int id);
 }

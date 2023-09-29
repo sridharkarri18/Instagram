@@ -1,11 +1,16 @@
 package Socialapp.Instagram.Dtos;
 
 import Socialapp.Instagram.Entities.Posts;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Postsdto {
+
 
     private int posts_id;
     private String postaddress;
@@ -13,11 +18,5 @@ public class Postsdto {
     private LocalTime deleted_time;
     private int user_id;
 
-    public Postsdto(Posts posts) {
-        this.posts_id = posts.getPosts_id();
-        this.postaddress = posts.getPostaddress();
-        this.posted_time = posts.getPosted_time();
-        this.deleted_time = posts.getDeleted_time();
-        this.user_id = posts.getUser_id();
-    }
+
 }

@@ -1,9 +1,12 @@
 package Socialapp.Instagram.Dtos;
 
 import Socialapp.Instagram.Entities.Requests;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+
 public class Requestsdto {
 
     private int request_id;
@@ -12,13 +15,10 @@ public class Requestsdto {
 
     private int receiver_id;
 
-    private String req_status;
+    private String status;
 
 
-    public Requestsdto(Requests requests) {
-        this.request_id = requests.getRequest_id();
-        this.sender_id = requests.getSender_id();
-        this.receiver_id = requests.getReceiver_id();
-        this.req_status = requests.getStatus();
-    }
+
+
+
 }

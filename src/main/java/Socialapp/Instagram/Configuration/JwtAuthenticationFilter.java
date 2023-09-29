@@ -1,5 +1,8 @@
 package Socialapp.Instagram.Configuration;
 
+import Socialapp.Instagram.Entities.User;
+import Socialapp.Instagram.Repositories.UserRepoistory;
+import Socialapp.Instagram.Repositories.Userrepo;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -25,10 +30,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtService jwtService;
-
-
+//    @Autowired
+//    private Userrepo userRepo;
     @Autowired
     private UserDetailsService userDetailsService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,10 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String requestHeader = request.getHeader("Authorization");
         //Bearer 2352345235sdfrsfgsdfsdf
         logger.info(" Header :  {}", requestHeader);
+
         String username = null;
         String token = null;
         if (requestHeader != null && requestHeader.startsWith("Bearer")) {
-            //looking good
             token = requestHeader.substring(7);
             try {
 
@@ -59,7 +65,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             }
 
-
         } else {
             logger.info("Invalid Header Value !! ");
         }
@@ -73,10 +78,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             Boolean validateToken = this.jwtService.validateToken(token, userDetails);
             if (validateToken) {
-
+                var context = SecurityContextHolder.createEmptyContext();
                 //set the authentication
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                context.setAuthentication(authentication);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
@@ -87,6 +93,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         }
 
+
         filterChain.doFilter(request, response);
     }
+
 }

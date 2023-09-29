@@ -2,13 +2,19 @@ package Socialapp.Instagram.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Table(name = "posts")
 @Entity
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Posts {
 
     @Id
@@ -24,5 +30,9 @@ public class Posts {
     @JsonIgnore
     @JoinColumn(name = "user_id",nullable =false,insertable = false,updatable = false)
     private User user;
+
+    @OneToMany(mappedBy = "posts")
+    @JsonIgnore
+    private List<Comment> commentList;
 
 }
