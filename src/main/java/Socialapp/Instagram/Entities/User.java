@@ -35,13 +35,13 @@ public class User {
 
     private String status;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Posts> postsList;
+    // @OneToMany(mappedBy = "user")
+    // @JsonIgnore
+    // private List<Posts> postsList;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Comment> commentList;
+    // @OneToMany(mappedBy = "user")
+    // @JsonIgnore
+    // private List<Comment> commentList;
 
 
 }
